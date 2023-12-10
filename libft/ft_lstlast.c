@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test1.c                                            :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/06 16:50:33 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/07 16:24:08 by hyeongsh         ###   ########.fr       */
+/*   Created: 2023/10/08 20:58:55 by hyeongsh          #+#    #+#             */
+/*   Updated: 2023/12/08 15:06:10 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(void)
+t_list	*ft_lstlast(t_list *lst)
 {
-	char	*line;
-
-	while (42)
-	{
-		line = readline("mish > ");
-		if (line)
-			printf("%s\n", line);
-		else
-			break ;
-		add_history(line);
-		free(line);
-	}
-	return (0);
+	if (lst == 0)
+		return (0);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }

@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 14:13:01 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/07 13:26:44 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:40:29 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*path_search(char **env, char *command)
 
 void	command_error(char *command)
 {
-	ft_putstr_fd("pipex: ", 2);
+	ft_putstr_fd("mish: ", 2);
 	ft_putstr_fd(command, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	exit(127);

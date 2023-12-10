@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:53:34 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/07 13:25:20 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:32:25 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # include <string.h>
 # include <errno.h>
 
+struct sigaction	sig;
+
 // pipe
 typedef struct s_data
 {
@@ -47,7 +49,6 @@ char	**path_setting(char **env);
 char	*path_search(char **env, char *command);
 int		open_check(int ac, char **av, int *fd, char **heredoc);
 void	first_setting(int ac, char **av, t_data *data, char **env);
-void	error_print(int flag);
 void	make_child(t_data *data, char **av, int i, char **env);
 void	command_exec_first(t_data *data, char **av, char **env);
 void	command_exec_mid(t_data *data, int i, char **env);
@@ -57,14 +58,19 @@ void	make_heredoc(char **av, char **heredoc);
 void	heredoc_setting(int ac, char **av, t_data *data, char **env);
 int		ending(t_data *data, char *heredoc);
 void	ending_free(t_data *data);
-char	**make_command(char *cmd);
-char	**xfile_split(char *cmd);
-char	**cmd_split(char *cmd, char sep);
-int		cmd_countword(char *cmd, char sep);
-void	cmd_input(char *toss, char **cmd, char sep);
 void	make_child_heredoc(t_data *data, char *heredoc, char **env);
 void	command_exec_first_heredoc(t_data *data, char *heredoc, char **env);
 void	command_exec_end_heredoc(t_data *data, char **env);
 void	command_error(char *command);
+
+t_list	*pasing(char *line);
+void	split_free(char **command);
+void	error_print(int flag);
+
+int		ms_init(char c, char *s);
+int		ms_split_input(char *toss, char **cmd, char *oper);
+int		ms_split_first(char *toss, char **cmd, char *oper);
+int		ms_split_plus(char *toss, int *i, char **cmd);
+char	**ms_split(char *cmd);
 
 #endif

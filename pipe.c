@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:10:45 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/07 13:28:43 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:39:00 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,6 @@ void	ending_free(t_data *data)
 		free(data->pipe[i++]);
 	free(data->pipe);
 	free(data->id);
-}
-
-void	error_print(int flag)
-{
-	ft_putstr_fd("pipex: ", 2);
-	if (flag == 2)
-		ft_putstr_fd("input: ", 2);
-	ft_putstr_fd(strerror(flag), 2);
-	ft_putstr_fd("\n", 2);
-	if (flag == 126)
-		exit(126);
-	exit(1);
 }
 
 char	*px_strjoin(char const *s1, char const *s2, char *sep)

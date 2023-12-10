@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeongsh <hyeongsh@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/08 20:58:55 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/10/11 13:36:10 by hyeongsh         ###   ########.fr       */
+/*   Created: 2023/10/08 20:45:23 by hyeongsh          #+#    #+#             */
+/*   Updated: 2023/12/08 15:19:05 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (lst == 0)
-		return (0);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	if (lst == 0 || new == 0)
+		return ;
+	new->next = *lst;
+	new->prev = NULL;
+	*lst = new;
 }

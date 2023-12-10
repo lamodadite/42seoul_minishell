@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeongsh <hyeongsh@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/08 17:28:00 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/10/09 19:35:56 by hyeongsh         ###   ########.fr       */
+/*   Created: 2023/10/08 21:12:19 by hyeongsh          #+#    #+#             */
+/*   Updated: 2023/12/08 15:06:08 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list	*toss;
+	t_list	*cur;
 
-	toss = (t_list *)malloc(sizeof(t_list) * 1);
-	if (toss == 0)
-		return (0);
-	toss->next = NULL;
-	toss->content = content;
-	return (toss);
+	if (lst == 0 || del == 0)
+		return ;
+	while (*lst != NULL)
+	{
+		cur = *lst;
+		*lst = (*lst)->next;
+		ft_lstdelone(cur, del);
+	}
+	*lst = 0;
 }
