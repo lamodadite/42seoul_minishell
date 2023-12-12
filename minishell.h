@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:53:34 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/10 17:32:25 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:24:55 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,15 @@
 
 struct sigaction	sig;
 
-// pipe
 typedef struct s_data
 {
-	char	**path;
-	char	**cmd;
-	int		**pipe;
-	pid_t	*id;
-	int		cmd_num;
+	char	*infile;
+	char	*outfile;
+	char	***cmd_arr;
+	int		cnt;
 }	t_data;
 
-int		pipex(int ac, char **av, char **env);
+/* hyeongsh pipex
 char	*px_strjoin(char const *s1, char const *s2, char *sep);
 void	error_print(int flag);
 char	**path_setting(char **env);
@@ -62,6 +60,7 @@ void	make_child_heredoc(t_data *data, char *heredoc, char **env);
 void	command_exec_first_heredoc(t_data *data, char *heredoc, char **env);
 void	command_exec_end_heredoc(t_data *data, char **env);
 void	command_error(char *command);
+*/
 
 t_list	*pasing(char *line);
 void	split_free(char **command);
@@ -72,5 +71,30 @@ int		ms_split_input(char *toss, char **cmd, char *oper);
 int		ms_split_first(char *toss, char **cmd, char *oper);
 int		ms_split_plus(char *toss, int *i, char **cmd);
 char	**ms_split(char *cmd);
+
+/* debug */
+void	print_2d_arr(char **s);
+void	print_3d_arr(char ***s);
+void	print_node(t_list *list);
+void	print_data(t_data *data);
+
+/* pipex
+void	init_info(t_info *info, int ac, char **av, char **envp);
+int		wait_children(t_info *info);
+void	child(t_info *info);
+void	here_doc(t_info *info);
+int		pipex_main(int ac, char **av, char **envp);
+char	*get_env_path(char **envp);
+char	*make_cmd_path(char const *path, char const *cmd);
+char	*get_valid_path(char **cmds, char *env_path);
+int		execute_cmd(t_info *info);
+void	open_pipe(t_info *info);
+void	close_pipe(t_info *info);
+void	open_file(t_info *info);
+void	close_all_pipe(t_info *info);
+void	dup2_sub(int first, int second);
+void	free_2d_array(char **arr);
+void	perror_exit(char *str, int exit_code);
+*/
 
 #endif

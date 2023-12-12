@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 21:00:43 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/10 16:06:38 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:17:25 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static int	ms_type_check(t_list *new)
 			min = tmp->type;
 		tmp = tmp->prev;
 	}
-	if (min <= -5 && min != -6)
+	if (min <= -2 && min >= -4)
 		return (1);
-	else if (min == -6)
+	else if (min == -5)
 		return (2);
 	else
 		return (0);

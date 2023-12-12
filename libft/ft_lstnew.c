@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:28:00 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/10 16:58:48 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:16:12 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,14 @@ static int	ft_typecheck(char *data)
 {
 	if (ft_strncmp("|", data, 2) == 0)
 		return (-1);
-	else if (ft_strncmp("||", data, 3) == 0)
-		return (-2);
-	else if (ft_strncmp("&", data, 2) == 0)
-		return (-3);
-	else if (ft_strncmp("&&", data, 3) == 0)
-		return (-4);
-	else if (ft_strncmp("<", data, 2) == 0)
-		return (-5);
-	else if (ft_strncmp("<<", data, 3) == 0)
-		return (-6);
 	else if (ft_strncmp(">", data, 2) == 0)
-		return (-7);
+		return (-2);
 	else if (ft_strncmp(">>", data, 3) == 0)
-		return (-8);
+		return (-3);
+	else if (ft_strncmp("<", data, 2) == 0)
+		return (-4);
+	else if (ft_strncmp("<<", data, 3) == 0)
+		return (-5);
 	else if (ft_init("$", data) > -1)
 		return (3);
 	ft_printf("syntax error: %s\n", data);
@@ -65,7 +59,7 @@ t_list	*ft_lstnew(char *data)
 	toss->next = NULL;
 	toss->prev = NULL;
 	toss->data = data;
-	if (ft_init("$|&<>", data) > -1)
+	if (ft_init("$|&<>;\\", data) > -1)
 		toss->type = ft_typecheck(data);
 	else
 		toss->type = 0;
