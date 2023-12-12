@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:53:34 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/12 15:24:55 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:36:41 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ void	print_2d_arr(char **s);
 void	print_3d_arr(char ***s);
 void	print_node(t_list *list);
 void	print_data(t_data *data);
+
+/* init_data */
+char	**make_cmd(t_list *list);
+int		get_cmd_arr_len(t_list *lst);
+t_list	*check_type_and_move_list(t_data *data, t_list *list);
+char	***make_cmd_arr(t_data *data, t_list *list);
+void	init_data(t_data *data, t_list *list);
 
 /* pipex
 void	init_info(t_info *info, int ac, char **av, char **envp);
