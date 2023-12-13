@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:53:34 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/13 16:05:17 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:35:07 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define MINISHELL_H
 
 # include "libft.h"
-# include <stdio.h>
-# include <stdlib.h>
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -29,8 +27,6 @@
 # include <termios.h>
 # include <term.h>
 # include <fcntl.h>
-# include <string.h>
-# include <errno.h>
 
 # define PATH "PATH="
 # define BASIC_PATH "/usr/local/bin:/usr/bin:/bin:\
@@ -72,7 +68,6 @@ typedef struct s_info
 
 t_list	*pasing(char *line);
 void	split_free(char **command);
-void	error_print(int flag);
 
 int		ms_init(char c, char *s);
 int		ms_split_input(char *toss, char **cmd, char *oper);
