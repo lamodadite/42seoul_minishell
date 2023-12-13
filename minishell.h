@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:53:34 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/13 16:05:17 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:47:21 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_data
 	char			**cmd_arr;
 	int				is_append;
 	struct s_data	*next;
-	struct s_data	*prev;
 }	t_data;
 
 typedef struct s_info
@@ -85,6 +84,8 @@ void	print_2d_arr(char **s);
 void	print_3d_arr(char ***s);
 void	print_node(t_list *list);
 void	print_data(t_data *data);
+void	print_data_node(t_data *data);
+void	print_container(t_container *con);
 
 /* init_data */
 char	**make_cmd(t_list *list);
@@ -120,5 +121,16 @@ void	init_info(t_info *info, t_data *data);
 void	child(t_info *info);
 void	here_doc(t_info *info);
 int		pipex(t_data *data);
+
+/* data_list */
+void	init_data_node(t_data *node);
+int		get_cmd_arr_len(t_list *lst);
+t_data	*data_lstnew(t_list *line);
+t_data	*data_lstlast(t_data *lst);
+void	data_lstadd_back(t_data **lst, t_data *new);
+t_data	*make_data_list(t_list *line);
+int	get_data_list_len(t_data *lst);
+void	init_container(t_container *con, t_list *line, char **envp);
+
 
 #endif

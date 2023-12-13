@@ -43,10 +43,27 @@ void	print_node(t_list *list)
 	printf("list->type -> %d\n\n", list->type);
 }
 
-void	print_data(t_data *data)
+void	print_data_node(t_data *data)
 {
 	printf("infile -> %s\n", data->infile);
 	printf("outfile -> %s\n", data->outfile);
-	printf("data->cnt -> %d\n", data->cnt);
-	print_3d_arr(data->cmd_arr);
+	printf("delimeter -> %s\n", data->delimeter);
+	printf("data->is_append -> %d\n", data->is_append);
+	print_2d_arr(data->cmd_arr);
+}
+
+void	print_data(t_data *data)
+{
+	print_data_node(data);
+	while (data->next != NULL)
+	{
+		print_data_node(data);
+		data = data->next;
+	}
+}
+
+void	print_container(t_container *con)
+{
+	printf("con->cnt -> %d\n", con->cnt);
+	print_data(con->head);
 }

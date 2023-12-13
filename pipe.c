@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 22:25:31 by jongmlee          #+#    #+#             */
-/*   Updated: 2023/12/12 22:21:51 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:49:25 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@ void	init_info(t_info *info, t_data *data)
 		info->pipe_fds[i][i] = -1;
 		info->pipe_fds[i][(i + 1) % 2] = -1;
 		i++;
-	}
-	info->is_heredoc = 0;
-	if (ft_strncmp(data->cmd_arr[0][0], HEREDOC, ft_strlen(HEREDOC)) == 0)
-	{
-		here_doc(info);
-		info->is_heredoc = 1;
-		info->idx = 0;
 	}
 }
 
@@ -65,7 +58,7 @@ void	child(t_info *info)
 	info->cur = info->idx % 2;
 	close(info->pipe_fds[info->cur][0]);
 	close(info->pipe_fds[info->cur][1]);
-	if (info->idx != info->data->cnt - 1)
+	if (info->idx != 5)
 		open_pipe(info);
 	info->last_pid = fork();
 	if (info->last_pid == -1)
@@ -92,7 +85,7 @@ void	here_doc(t_info *info)
 	info->infile_fd = open(".heredoc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (info->infile_fd < 0)
 		perror_exit("open()", 1);
-	delimeter = info->data->cmd_arr[0][1];
+	delimeter = NULL;
 	while (1)
 	{
 		write(1, "heredoc> ", 9);
@@ -114,7 +107,7 @@ int	pipex(t_data *data)
 	t_info	info;
 
 	init_info(&info, data);
-	while (++info.idx < data->cnt)
+	while (++info.idx < 5)
 		child(&info);
 	close_all_pipe(&info);
 	return (wait_children(&info));

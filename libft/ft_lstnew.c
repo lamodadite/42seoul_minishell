@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:28:00 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/13 16:13:51 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:35:26 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ static int	ft_init(char *s, char *data)
 
 static int	ft_typecheck(char *data)
 {
-	if (ft_strncmp("|", data, 2) == 0)
+	if (ft_strncmp(">", data, 2) == 0)
 		return (-1);
-	else if (ft_strncmp(">", data, 2) == 0)
-		return (-2);
 	else if (ft_strncmp(">>", data, 3) == 0)
-		return (-3);
+		return (-2);
 	else if (ft_strncmp("<", data, 2) == 0)
-		return (-4);
+		return (-3);
 	else if (ft_strncmp("<<", data, 3) == 0)
+		return (-4);
+	else if (ft_strncmp("|", data, 2) == 0)
 		return (-5);
 	else if (ft_init("$", data) > -1)
 		return (5);

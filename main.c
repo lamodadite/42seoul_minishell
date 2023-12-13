@@ -6,20 +6,20 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:50:33 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/13 15:31:24 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:26:21 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **envp)
+int	main(int ac, char **av, char **envp)
 {
-	t_list	*head;
-	char	*line;
-	t_data	*data;
+	t_list		*head;
+	char		*line;
+	t_container	con;
 
 	(void) ac;
-	data->envp = NULL;
+	(void) av;
 	while (42)
 	{
 		line = readline("mish> ");
@@ -29,11 +29,9 @@ int	main(int ac, char **envp)
 		head = pasing(line);
 		if (head != NULL)
 		{
-			t_list	*tmp;
-			tmp = head;
-			data = make_data_list(tmp);
-			//print_data(&data);
-			pipex(&data);
+			init_container(&con, head, envp);
+			//print_container(&con);
+			//pipex(&data);
 			// TODO: clear data
 		}
 		ft_lstclear(&head, free);

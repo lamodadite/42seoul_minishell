@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 22:28:19 by jongmlee          #+#    #+#             */
-/*   Updated: 2023/12/13 15:06:34 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:50:11 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	close_pipe(t_info *info)
 	i = -1;
 	if (info->idx == 0 || (info->idx == 1 && info->is_heredoc == 1))
 		close(info->pipe_fds[info->cur][0]);
-	else if (info->idx == info->data->cnt - 1)
+	else if (info->idx == 5)
 		close(info->pipe_fds[!info->cur][1]);
 	else
 	{
@@ -48,7 +48,7 @@ void	open_file(t_info *info)
 		if (info->infile_fd == -1)
 			perror_exit(ft_strjoin(".heredoc_tmp: ", info->data->infile), 1);
 	}
-	else if (info->idx == info->data->cnt - 1 && info->data->outfile != NULL)
+	else if (info->idx == 5 && info->data->outfile != NULL)
 	{
 		if (info->data->is_append == 1)
 			info->outfile_fd = open(info->data->outfile,
@@ -78,7 +78,7 @@ void	redirect(t_info *info)
 		else
 			dup2_sub(info->infile_fd, info->pipe_fds[info->cur][1]);
 	}
-	else if (info->idx == info->data->cnt - 1)
+	else if (info->idx == 5)
 	{
 		if (info->data->outfile == NULL)
 			dup2(info->pipe_fds[!info->cur][0], STDIN_FILENO);
