@@ -15,11 +15,9 @@ SRCS = ft_strjoin.c ft_striteri.c ft_atoi.c \
 		ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c \
 		ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c \
 		ft_lstdelone.c ft_lstiter.c get_next_line.c \
-		get_next_line_utils.c ft_printf.c buf_func.c \
-		info_func.c csn_format.c di_format.c \
-		xp_format.c u_format.c util_func.c 
+		get_next_line_utils.c
 OBJS = $(SRCS:.c=.o)
-INC = libft.h
+INC = libft.h ../minishell.h
 
 all : $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:28:00 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/11 21:16:12 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:37:38 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	ft_typecheck(char *data)
 		return (-5);
 	else if (ft_init("$", data) > -1)
 		return (3);
-	ft_printf("syntax error: %s\n", data);
+	printf("syntax error: %s\n", data);
 	return (100);
 }
 

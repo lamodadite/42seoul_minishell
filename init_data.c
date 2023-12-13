@@ -9,7 +9,7 @@ char	**make_cmd(t_list *list)
 
 	tmp = list;
 	len = 0;
-	while (tmp != NULL && !(tmp->type <= -1 && tmp->type >= -3))
+	while (tmp != NULL && tmp->type != -1)
 	{
 		if (tmp->type == 0)
 			len++;
@@ -39,8 +39,6 @@ int		get_cmd_arr_len(t_list *lst)
 	{
 		if (lst->type == -1)
 			len++;
-		if (lst->type == -2 || lst->type == -3)
-			break;
 		lst = lst->next;
 	}
 	return (len);
@@ -55,6 +53,8 @@ t_list	*check_type_and_move_list(t_data *data, t_list *list)
 		else if (list->type == -2 || list->type == -3)
 		{
 			data->outfile = list->next->data;
+			if (list->type == -3)
+				data->is_append = 1;
 			return (list->next);
 		}
 		else if (list->type == -4)
@@ -89,9 +89,13 @@ char	***make_cmd_arr(t_data *data, t_list *list)
 	return (cmd_arr);
 }
 
-void	init_data(t_data *data, t_list *list)
+void	init_data(t_data *data, t_list *list, char **envp)
 {
 	data->infile = NULL;
 	data->outfile = NULL;
+	data->cnt = 0;
+	data->is_append = 0;
 	data->cmd_arr = make_cmd_arr(data, list);
+	if (data->envp == NULL)
+		data->envp = ms_2d_arr_dup(envp);
 }

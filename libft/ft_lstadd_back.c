@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 21:00:43 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/11 21:17:25 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:50:13 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,14 @@ static int	ms_type_check(t_list *new)
 			min = tmp->type;
 		tmp = tmp->prev;
 	}
-	if (min <= -2 && min >= -4)
+	if (min == -2)
 		return (1);
-	else if (min == -5)
+	else if (min == -3)
 		return (2);
+	else if (min == -4)
+		return (3);
+	else if (min == -5)
+		return (4);
 	else
 		return (0);
 }
