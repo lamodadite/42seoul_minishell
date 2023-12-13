@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 16:02:17 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/12 20:25:10 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:33:05 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**ms_split(char *cmd)
 		toss[count] = (char *)ft_calloc(wordlen + 1, sizeof(char));
 		if (toss[count] == 0)
 			error_print(errno);
-		if (ms_split_input(toss[count], &cmd, "<>|&();\\") == -1)
+		if (ms_split_input(toss[count], &cmd, "<>|&();") == -1)
 			return (NULL);
 		count++;
 	}
@@ -54,8 +54,6 @@ int	ms_split_input(char *toss, char **cmd, char *oper)
 				return (-1);
 			continue ;
 		}
-		if (**cmd == '\\')
-			(*cmd)++;
 		toss[i++] = *(*cmd)++;
 	}
 	while (**cmd == ' ')
@@ -79,13 +77,11 @@ int	ms_split_plus(char *toss, int *i, char **cmd)
 {
 	char	sep;
 
-	sep = *(*cmd)++;
+	sep = *(*cmd);
+	toss[(*i)++] = *(*cmd)++;
 	while (**cmd != sep && **cmd != 0)
-	{
-		if (**cmd == '\\')
-			(*cmd)++;
 		toss[(*i)++] = *(*cmd)++;
-	}
+	toss[(*i)++] = *(*cmd);
 	if (**cmd != sep)
 	{
 		printf("syntax error: %c\n", sep);
