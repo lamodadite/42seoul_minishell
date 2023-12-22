@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:27:45 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 13:09:00 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:16:09 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ int	execute_builtin(char **cmds, t_container *con, int flag)
 	return (0);
 }
 
-void	redirect_and_open_file(t_container *con, int *in_fd, int *out_fd)
+int	redirect_and_open_file(t_container *con, int *in_fd, int *out_fd)
 {
 	if (con->head->infile != NULL)
 	{
 		*in_fd = open(con->head->infile, O_RDONLY);
 		if (*in_fd == -1)
-			print_file_error(con->head->infile, con);
+			return (print_builtin_file_error(con->head->infile, con));
 		dup2(*in_fd, STDIN_FILENO);
 	}
 	if (con->head->outfile != NULL)
@@ -62,9 +62,10 @@ void	redirect_and_open_file(t_container *con, int *in_fd, int *out_fd)
 			*out_fd = open(con->head->outfile,
 					O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (*out_fd == -1)
-			error_print(errno);
+			return (print_builtin_file_error(con->head->infile, con));
 		dup2(*out_fd, STDOUT_FILENO);
 	}
+	return (0);
 }
 
 int	execute_builtin_one_case(t_container *con)
@@ -74,11 +75,12 @@ int	execute_builtin_one_case(t_container *con)
 	int	stdin_fd;
 	int	stdout_fd;
 
-	in_fd = 2147483647;
-	out_fd = 2147483646;
+	stdin_fd = 2147483647;
+	stdout_fd = 2147483646;
 	stdin_fd = dup(STDIN_FILENO);
 	stdout_fd = dup(STDOUT_FILENO);
-	redirect_and_open_file(con, &in_fd, &out_fd);
+	if (redirect_and_open_file(con, &in_fd, &out_fd) == 1)
+		return (con->exit_code);
 	con->exit_code = execute_builtin(con->head->cmd_arr, con, 0);
 	dup2(stdin_fd, STDIN_FILENO);
 	dup2(stdout_fd, STDOUT_FILENO);
@@ -86,5 +88,6 @@ int	execute_builtin_one_case(t_container *con)
 	close(out_fd);
 	close(stdin_fd);
 	close(stdout_fd);
+	delete_all_heredoc_tmpfile(con->head);
 	return (con->exit_code);
 }

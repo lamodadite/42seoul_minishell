@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 09:52:25 by jongmlee          #+#    #+#             */
-/*   Updated: 2023/12/22 09:55:57 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:30:08 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	check_valid_file(t_token *line, t_data *toss, int *flag)
 {
 	int	fd;
 
-	fd = 0;
+	fd = 2147483647;
 	if (*flag == 0 && (line->type == 1 || line->type == 2))
 	{
 		fd = open(line->data, O_CREAT | O_WRONLY, 0644);
@@ -103,7 +103,8 @@ void	check_valid_file(t_token *line, t_data *toss, int *flag)
 	close(fd);
 }
 
-int	check_type_and_dup_data(t_token *line, t_data *toss, t_container *con)
+int	check_type_and_dup_data(t_token *line, t_data *toss,
+	t_container *con, int here_flag)
 {
 	int	flag;
 
@@ -114,8 +115,15 @@ int	check_type_and_dup_data(t_token *line, t_data *toss, t_container *con)
 			check_valid_file(line, toss, &flag);
 		else if (line->type == 4 || line->type == 5)
 		{
+			if (here_flag == 1)
+			{
+				unlink(toss->infile);
+				free(toss->delimeter);
+				free(toss->infile);
+			}
 			toss->delimeter = ft_strdup(line->data);
 			toss->infile = get_heredoc_tmpfile_name();
+			here_flag = 1;
 			if (heredoc(toss, con, line->type) == 0)
 				return (0);
 		}

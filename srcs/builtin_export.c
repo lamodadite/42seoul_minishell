@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:31:43 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/21 22:32:50 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/22 18:27:44 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ char	**add_env(char *var_name, char *var, t_container *con)
 	return (ret);
 }
 
+char	*get_var_name(char *cmd)
+{
+	char	*tmp;
+
+	tmp = ft_strchr(cmd, '=');
+	if (tmp == NULL)
+		return (NULL);
+	return (ft_substr(cmd, 0, tmp - cmd));
+}
+
 int	builtin_export(char **cmds, t_container *con)
 {
 	char	*var_name;
@@ -44,13 +54,12 @@ int	builtin_export(char **cmds, t_container *con)
 
 	i = 0;
 	if (cmds[1] == NULL)
-	{
-		builtin_env(con->envp);
-		return (0);
-	}
+		return (builtin_env(con->envp));
 	while (cmds[++i] != NULL)
 	{
-		var_name = ft_substr(cmds[i], 0, ft_strchr(cmds[i], '=') - cmds[i]);
+		var_name = get_var_name(cmds[i]);
+		if (var_name == NULL)
+			return (0);
 		if (check_identifier(var_name) != 0)
 		{
 			free(var_name);

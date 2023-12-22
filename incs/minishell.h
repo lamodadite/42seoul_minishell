@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:53:34 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 14:04:24 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:30:40 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,11 @@ void	child(t_info *info, t_container *con);
 int		pipex(t_container *con);
 
 /* heredoc */
-int		heredoc(t_data *info, t_container *con, int type);
+int		heredoc(t_data *data, t_container *con, int type);
 char	*get_heredoc_tmpfile_name(void);
 void	delete_all_heredoc_tmpfile(t_data *head);
-void	read_heredoc(t_data *info, t_container *con, int tmpfile_fd, int type);
-int		wait_heredoc(t_data *info, int status, t_container *con);
+void	read_heredoc(t_data *data, t_container *con, int tmpfile_fd, int type);
+int		wait_heredoc(t_data *data, int status, t_container *con);
 
 /* heredoc_expend.c */
 char	*heredoc_expend(char *data, char **envp);
@@ -168,7 +168,8 @@ t_data	*make_data_list(t_token *line, t_container *con);
 int		init_container(t_container *con, t_token *line);
 char	**make_cmd(t_token *list);
 void	check_valid_file(t_token *line, t_data *toss, int *flag);
-int		check_type_and_dup_data(t_token *line, t_data *toss, t_container *con);
+int		check_type_and_dup_data(t_token *line, t_data *toss,
+			t_container *con, int here_flag);
 
 /* data_utils */
 void	init_data_node(t_data *node);
@@ -184,11 +185,12 @@ void	print_execve_error(char *cmd, t_container *con);
 /* error_return */
 int		print_execute_error(char *cmd, char *path, char *error_msg);
 int		print_syntax_error(char *error_char, t_token **head, t_container *con);
+int		print_builtin_file_error(char *file, t_container *con);
 
 /* builtin_execute */
 int		check_builtin(char *s);
 int		execute_builtin(char **cmds, t_container *con, int flag);
-void	redirect_and_open_file(t_container *con, int *in_fd, int *out_fd);
+int		redirect_and_open_file(t_container *con, int *in_fd, int *out_fd);
 int		execute_builtin_one_case(t_container *con);
 
 /* builtin_cd */

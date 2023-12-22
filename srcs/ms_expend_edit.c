@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 16:18:05 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 12:57:03 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/22 18:25:55 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ static int	make_expend(char *expend, char *data, int *i, int type)
 			type = 1;
 		if (type == 0 && j > 0 && ((quote == 1 && data[*i] == '\'')
 				|| (quote == 2 && data[*i] == '\"')))
+		{
 			quote = 0;
+			expend[j++] = data[(*i)++];
+			break ;
+		}
 		if (type == 1 && j > 0 && ((data[*i] == '$' || data[*i] == ' '
 					|| data[*i] == 0 || data[*i] == '\"' || data[*i] == '\'')))
 			break ;

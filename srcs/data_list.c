@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:28:02 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 09:55:45 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:29:41 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_data	*data_lstnew(t_token *line, t_container *con)
 	toss = (t_data *)ft_calloc(1, sizeof(t_data));
 	init_data_node(toss);
 	toss->cmd_arr = make_cmd(line);
-	if (check_type_and_dup_data(line, toss, con) == 0)
+	if (check_type_and_dup_data(line, toss, con, 0) == 0)
 	{
 		free_2d_array(toss->cmd_arr);
 		free(toss->infile);

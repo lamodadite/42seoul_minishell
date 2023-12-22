@@ -6,13 +6,13 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:28:25 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 13:09:10 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/22 19:19:13 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	heredoc(t_data *info, t_container *con, int type)
+int	heredoc(t_data *data, t_container *con, int type)
 {
 	int		tmpfile_fd;
 	int		status;
@@ -25,18 +25,18 @@ int	heredoc(t_data *info, t_container *con, int type)
 	if (pid == 0)
 	{
 		ms_sigset(SIG_DFL, SIG_IGN);
-		tmpfile_fd = open(info->infile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		tmpfile_fd = open(data->infile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (tmpfile_fd < 0)
 			error_print(errno);
-		read_heredoc(info, con, tmpfile_fd, type);
+		read_heredoc(data, con, tmpfile_fd, type);
 		exit(0);
 	}
 	wait(&status);
 	con->exit_code = WEXITSTATUS(status);
-	return (wait_heredoc(info, status, con));
+	return (wait_heredoc(data, status, con));
 }
 
-void	read_heredoc(t_data *info, t_container *con, int tmpfile_fd, int type)
+void	read_heredoc(t_data *data, t_container *con, int tmpfile_fd, int type)
 {
 	char	*line;
 
@@ -47,8 +47,8 @@ void	read_heredoc(t_data *info, t_container *con, int tmpfile_fd, int type)
 			return ;
 		if (!line[0])
 			continue ;
-		if (!ft_strncmp(info->delimeter, line, ft_strlen(info->delimeter))
-			&& ft_strlen(info->delimeter) == (ft_strlen(line)))
+		if (!ft_strncmp(data->delimeter, line, ft_strlen(data->delimeter))
+			&& ft_strlen(data->delimeter) == (ft_strlen(line)))
 			return ;
 		if (type == 4)
 			line = heredoc_expend(line, con->envp);
@@ -60,17 +60,18 @@ void	read_heredoc(t_data *info, t_container *con, int tmpfile_fd, int type)
 	close(tmpfile_fd);
 }
 
-int	wait_heredoc(t_data *info, int status, t_container *con)
+int	wait_heredoc(t_data *data, int status, t_container *con)
 {
 	if (WIFSIGNALED(status) != 0)
 	{
-		unlink(info->infile);
+		unlink(data->infile);
 		write(1, "\n", 1);
 		ms_sigset(sig_newline, SIG_IGN);
 		con->exit_code = 1;
 		return (0);
 	}
 	ms_sigset(sig_newline, SIG_IGN);
+	con->exit_code = 0;
 	return (1);
 }
 
