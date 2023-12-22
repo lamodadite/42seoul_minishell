@@ -9,7 +9,7 @@ SRCS = main.c ms_parsing.c ms_split.c \
 	signal.c termios.c \
 	builtin_execute.c builtin_cd.c builtin_unset.c \
 	builtin_exit.c builtin_export.c builtin_env.c builtin_echo.c \
-	common_utils.c debug.c 
+	common_utils.c 
 OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 INC_DIR := incs

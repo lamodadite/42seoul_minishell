@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:53:34 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 13:21:50 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:04:24 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,16 +115,6 @@ int		check_token(t_token	*head, t_container *con);
 
 /* ms_expend_edit.c */
 char	*expend_list(char *data, t_container *con);
-
-/* debug */
-void	print_arr(char *s);
-void	print_2d_arr(char **s);
-void	print_3d_arr(char ***s);
-void	print_node(t_token *list);
-void	print_data(t_data *data);
-void	print_data_node(t_data *data);
-void	print_container(t_container *con);
-void	print_pwd_oldpwd(t_container *con);
 
 /* init_data */
 char	**make_cmd(t_token *list);
