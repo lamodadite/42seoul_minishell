@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 11:35:12 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/21 20:59:55 by jongmlee         ###   ########.fr       */
+/*   Created: 2023/12/19 13:36:41 by hyeongsh          #+#    #+#             */
+/*   Updated: 2023/12/22 12:37:53 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ms_sigset(void (*sigint_func)(int), void (*sigquit_func)(int))
 {
-	size_t	total_len;
-	size_t	index;
-	char	*toss;
+	signal(SIGINT, (*sigint_func));
+	signal(SIGQUIT, (*sigquit_func));
+}
 
-	index = 0;
-	if (s1 == 0)
-		total_len = ft_strlen(s2);
-	else
-		total_len = ft_strlen(s1) + ft_strlen(s2);
-	toss = (char *)ft_calloc(total_len + 1, sizeof(char));
-	if (s1 != 0)
-		ft_strlcat(toss, s1, total_len + 1);
-	ft_strlcat(toss, s2, total_len + 1);
-	return (toss);
+void	sig_newline(int signum)
+{
+	(void)signum;
+	g_signal = 1;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 1);
+	rl_redisplay();
 }

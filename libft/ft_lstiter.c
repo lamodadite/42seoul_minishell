@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 21:16:22 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/08 15:19:46 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:56:42 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
 	while (lst != 0)
 	{
-		f(lst->data);
+		f(lst->content);
 		lst = lst->next;
 	}
 }

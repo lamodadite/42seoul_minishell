@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/08 20:45:23 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/18 14:56:41 by hyeongsh         ###   ########.fr       */
+/*   Created: 2023/12/21 22:31:28 by hyeongsh          #+#    #+#             */
+/*   Updated: 2023/12/21 22:31:28 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+int	builtin_env(char **s)
 {
-	if (lst == 0 || new == 0)
-		return ;
-	new->next = *lst;
-	*lst = new;
+	int	i;
+
+	i = 0;
+	while (s[i] != NULL)
+	{
+		printf("%s\n", s[i]);
+		i++;
+	}
+	return (0);
 }

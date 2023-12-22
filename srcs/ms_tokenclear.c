@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ms_tokenclear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/08 21:00:43 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/18 14:56:40 by hyeongsh         ###   ########.fr       */
+/*   Created: 2023/10/08 21:12:19 by hyeongsh          #+#    #+#             */
+/*   Updated: 2023/12/16 20:42:57 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ms_tokendelone(t_token *token, void (*del)(void *));
+
+void	ms_tokenclear(t_token **token, void (*del)(void *))
 {
-	t_list	*last;
+	t_token	*cur;
 
-	if (lst == 0 || new == 0)
+	if (token == 0 || del == 0)
 		return ;
-	if (*lst == 0)
+	while (*token != NULL)
 	{
-		*lst = new;
-		return ;
+		cur = *token;
+		*token = (*token)->next;
+		ms_tokendelone(cur, del);
 	}
-	last = ft_lstlast(*lst);
-	last->next = new;
+	*token = 0;
+}
+
+void	ms_tokendelone(t_token *token, void (*del)(void *))
+{
+	if (token == 0 || del == 0)
+		return ;
+	del(token->data);
+	free(token);
 }
