@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:28:25 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 19:19:13 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:56:39 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,14 @@ char	*get_heredoc_tmpfile_name(void)
 {
 	int		tmp_num;
 	char	*tmp;
+	char	*itoa_num;
 
 	tmp_num = INT32_MIN;
 	while (tmp_num <= INT32_MAX)
 	{
-		tmp = ft_itoa(tmp_num);
+		itoa_num = ft_itoa(tmp_num);
+		tmp = ft_strjoin("/tmp/.", itoa_num);
+		free(itoa_num);
 		if (access(tmp, F_OK) == -1)
 			return (tmp);
 		free(tmp);

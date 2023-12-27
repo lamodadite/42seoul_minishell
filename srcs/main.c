@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:50:33 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 19:02:02 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:55:21 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	main(int ac, char **av, char **envp)
 	t_container		con;
 
 	if (ac != 1)
+	{
+		ft_putstr_fd("input error: put only one argument\n", 2);
 		return (0);
+	}
 	(void) av;
 	g_signal = 0;
 	ms_sigset(sig_newline, SIG_IGN);
@@ -27,7 +30,7 @@ int	main(int ac, char **av, char **envp)
 	ms_readline(&con, NULL);
 	free(con.pwd);
 	free_2d_array(con.envp);
-	printf("\033[u\033[1B\033[1Aexit\n");
+	printf("\033[A\033[11Cexit\n");
 	reset_input_mode(&con.old_term);
 	if (g_signal == 1)
 		return (1);
@@ -51,7 +54,7 @@ void	ms_readline(t_container *con, char *line)
 	while (42)
 	{
 		free(line);
-		line = readline("minishell> \033[s");
+		line = readline("minishell> ");
 		if (!line)
 			break ;
 		if (!line[0] || check_empty(line))

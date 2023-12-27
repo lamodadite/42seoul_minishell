@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:31:43 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/27 14:12:43 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:56:17 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*get_var_name(char *cmd)
 	return (ft_substr(cmd, 0, tmp - cmd));
 }
 
-int	builtin_export(char **cmds, t_container *con)
+int	builtin_export(char **cmds, t_container *con, int flag)
 {
 	char	*var_name;
 	char	**ret;
@@ -63,8 +63,9 @@ int	builtin_export(char **cmds, t_container *con)
 		if (check_identifier(var_name) != 0)
 		{
 			free(var_name);
-			return (print_execute_error("export", cmds[i],
-					"not a valid identifier"));
+			flag = print_execute_error("export", cmds[i],
+					"not a valid identifier");
+			continue ;
 		}
 		ret = add_env(var_name, cmds[i], con);
 		free(var_name);
@@ -73,5 +74,5 @@ int	builtin_export(char **cmds, t_container *con)
 		free(con->envp);
 		con->envp = ret;
 	}
-	return (0);
+	return (flag);
 }

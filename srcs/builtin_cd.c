@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:27:08 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 13:08:52 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:13:40 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ int	set_pwd_oldpwd(t_container *con)
 {
 	char	*tmp;
 
-	if (get_env_value("OLDPWD=", con->envp) != NULL)
+	tmp = get_env_value("OLDPWD=", con->envp);
+	if (tmp != NULL)
 		replace_env_value("OLDPWD=", con->pwd, con);
+	free(tmp);
 	tmp = getcwd(NULL, MAXSIZE);
 	if (tmp == NULL)
 	{
@@ -57,8 +59,10 @@ int	set_pwd_oldpwd(t_container *con)
 	}
 	free(con->pwd);
 	con->pwd = tmp;
-	if (get_env_value("PWD=", con->envp) != NULL)
+	tmp = get_env_value("PWD=", con->envp);
+	if (tmp != NULL)
 		replace_env_value("PWD=", con->pwd, con);
+	free(tmp);
 	return (0);
 }
 

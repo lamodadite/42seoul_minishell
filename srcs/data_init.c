@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 09:52:25 by jongmlee          #+#    #+#             */
-/*   Updated: 2023/12/22 19:30:08 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:04:51 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_data	*make_data_list(t_token *line, t_container *con)
 	{
 		if (data_lstadd_back(&head, data_lstnew(line, con)) == 0)
 		{
+			delete_all_heredoc_tmpfile(head);
 			data_lstclear(&head, free);
 			return (0);
 		}

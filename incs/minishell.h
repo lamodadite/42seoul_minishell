@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:53:34 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/26 21:28:04 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:39:38 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ int		builtin_exit(char **cmds, t_container *con, int flag);
 int		builtin_echo(char **cmds);
 
 /* bulitin_export */
-int		builtin_export(char **cmds, t_container *con);
+int		builtin_export(char **cmds, t_container *con, int flag);
 
 /* builtin_env */
 int		builtin_env(char **s);

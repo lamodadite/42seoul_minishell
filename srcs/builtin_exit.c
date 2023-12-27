@@ -6,13 +6,13 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:55:45 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/26 21:29:35 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:27:43 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	exit_error_check(char **cmds, int i);
+static int	exit_error_check(char **cmds);
 
 int	builtin_exit(char **cmds, t_container *con, int flag)
 {
@@ -28,13 +28,16 @@ int	builtin_exit(char **cmds, t_container *con, int flag)
 		exit(con->exit_code);
 	else if (i == 1 && g_signal == 1)
 		exit(1);
-	exitcode = exit_error_check(cmds, i);
-	if (exitcode == -1)
+	exitcode = exit_error_check(cmds);
+	if (i > 2)
+	{
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		return (1);
+	}
 	exit(exitcode);
 }
 
-static int	exit_error_check(char **cmds, int i)
+static int	exit_error_check(char **cmds)
 {
 	int	j;
 
@@ -54,11 +57,6 @@ static int	exit_error_check(char **cmds, int i)
 			exit(255);
 		}
 		j++;
-	}
-	if (i > 2)
-	{
-		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-		return (-1);
 	}
 	return (ft_atoi(cmds[1]));
 }
