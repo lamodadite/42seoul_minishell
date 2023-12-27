@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:27:45 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 19:16:09 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/27 13:57:11 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int	execute_builtin_one_case(t_container *con)
 	int	stdin_fd;
 	int	stdout_fd;
 
-	stdin_fd = 2147483647;
-	stdout_fd = 2147483646;
+	in_fd = -1;
+	out_fd = -1;
 	stdin_fd = dup(STDIN_FILENO);
 	stdout_fd = dup(STDOUT_FILENO);
 	if (redirect_and_open_file(con, &in_fd, &out_fd) == 1)

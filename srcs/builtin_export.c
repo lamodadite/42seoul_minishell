@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:31:43 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 18:27:44 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:12:47 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	**add_env(char *var_name, char *var, t_container *con)
 	int		flag;
 	int		i;
 
+	if (ft_strchr(var, '=') == NULL)
+			return (NULL);
 	ret = (char **)ft_calloc(sizeof(char *), get_2d_arr_len(con->envp) + 2);
 	flag = 0;
 	i = -1;
@@ -42,7 +44,7 @@ char	*get_var_name(char *cmd)
 
 	tmp = ft_strchr(cmd, '=');
 	if (tmp == NULL)
-		return (NULL);
+		return (ft_strdup(cmd));
 	return (ft_substr(cmd, 0, tmp - cmd));
 }
 
@@ -58,8 +60,6 @@ int	builtin_export(char **cmds, t_container *con)
 	while (cmds[++i] != NULL)
 	{
 		var_name = get_var_name(cmds[i]);
-		if (var_name == NULL)
-			return (0);
 		if (check_identifier(var_name) != 0)
 		{
 			free(var_name);
@@ -68,6 +68,8 @@ int	builtin_export(char **cmds, t_container *con)
 		}
 		ret = add_env(var_name, cmds[i], con);
 		free(var_name);
+		if (ret == NULL)
+			return (0);
 		free(con->envp);
 		con->envp = ret;
 	}
