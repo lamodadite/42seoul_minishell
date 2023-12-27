@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 16:02:17 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/21 14:25:25 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:26:12 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ char	**ms_split(char *cmd)
 		index = 0;
 		toss[count] = (char *)ft_calloc(wordlen + 1, sizeof(char));
 		if (ms_split_input(toss[count], &cmd, "|<>&;\\") == -1)
+		{
+			free_2d_array(toss);
 			return (NULL);
+		}
 		count++;
 	}
 	return (toss);

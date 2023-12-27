@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:53:34 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 19:30:40 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/26 21:28:04 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ int		check_identifier(char *cmd);
 char	**sub_env(t_container *con, char *cmd);
 
 /* bulitin_exit */
-int		builtin_exit(char **cmds, int flag);
+int		builtin_exit(char **cmds, t_container *con, int flag);
 int		builtin_echo(char **cmds);
 
 /* bulitin_export */

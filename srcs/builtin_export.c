@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:31:43 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/24 16:12:47 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:12:43 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**add_env(char *var_name, char *var, t_container *con)
 	int		i;
 
 	if (ft_strchr(var, '=') == NULL)
-			return (NULL);
+		return (NULL);
 	ret = (char **)ft_calloc(sizeof(char *), get_2d_arr_len(con->envp) + 2);
 	flag = 0;
 	i = -1;

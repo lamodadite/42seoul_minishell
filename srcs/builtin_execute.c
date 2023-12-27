@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:27:45 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/27 14:02:00 by jongmlee         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:10:24 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	execute_builtin(char **cmds, t_container *con, int flag)
 	else if (ft_strncmp(cmds[0], "unset", 6) == 0)
 		return (builtin_unset(cmds, con));
 	else if (ft_strncmp(cmds[0], "exit", 5) == 0)
-		return (builtin_exit(cmds, flag));
+		return (builtin_exit(cmds, con, flag));
 	else if (ft_strncmp(cmds[0], "export", 7) == 0)
 		return (builtin_export(cmds, con));
 	else if (ft_strncmp(cmds[0], "env", 4) == 0)
