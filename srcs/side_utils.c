@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 21:33:16 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/27 14:17:39 by jongmlee         ###   ########.fr       */
+/*   Updated: 2024/01/02 11:02:43 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ int	check_token(t_token	*head, t_container *con)
 	tmp = head;
 	while (tmp)
 	{
-		if (tmp->type < 0 && tmp->type > -5 && tmp->next == NULL)
-			return (print_syntax_error("newline", &head, con));
-		else if (tmp->type < 0 && tmp->type > -5 && tmp->next != NULL
-			&& tmp->next->type < 0 && tmp->next->type > -5)
-			return (print_syntax_error(tmp->next->data, &head, con));
-		else if (tmp->type == -5 && (tmp->next == NULL
+		if (tmp->type == -5 && (tmp->next == NULL
 				|| (tmp->next != NULL && tmp->next->type == -5)))
 			return (print_syntax_error("|", &head, con));
 		else if (tmp->type == -5 && (tmp->prev == NULL
 				|| (tmp->prev != NULL && tmp->prev->type < 0)))
 			return (print_syntax_error("|", &head, con));
+		else if (tmp->type < 0 && tmp->type > -5 && tmp->next == NULL)
+			return (print_syntax_error("newline", &head, con));
+		else if (tmp->type < 0 && tmp->type > -5 && tmp->next != NULL
+			&& tmp->next->type < 0 && tmp->next->type > -5)
+			return (print_syntax_error(tmp->next->data, &head, con));
 		tmp = tmp->next;
 	}
 	return (0);
