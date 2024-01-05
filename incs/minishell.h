@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:53:34 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/27 17:39:38 by jongmlee         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:04:17 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@
 
 # define MAXSIZE 1024
 # define PATH "PATH="
-# define BASIC_PATH "/usr/local/bin:/usr/bin:/bin:\
-	/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin"
 # define CMD_NOT_FOUND_ERR ": command not found\n"
 # define ERROR 1
 
