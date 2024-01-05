@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 18:31:23 by hyeongsh          #+#    #+#             */
-/*   Updated: 2024/01/02 14:57:34 by jongmlee         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:12:35 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	echo_option_check(char *cmd)
 			return (0);
 		i++;
 	}
-	if (cmd[i] == 0)
+	if (i == 1)
 		return (0);
 	return (1);
 }
