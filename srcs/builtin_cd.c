@@ -6,7 +6,7 @@
 /*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:27:08 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/27 17:13:40 by jongmlee         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:39:43 by jongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ int	builtin_cd(char **cmds, t_container *con)
 		path = get_env_value("HOME=", con->envp);
 	if (chdir(path) == -1)
 		return (print_execute_error("cd", path, strerror(errno)));
+	if (path != cmds[1])
+		free(path);
 	return (set_pwd_oldpwd(con));
 }
