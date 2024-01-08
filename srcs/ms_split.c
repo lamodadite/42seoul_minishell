@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 16:02:17 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/27 14:26:12 by jongmlee         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:31:09 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ int	ms_split_input(char *toss, char **cmd, char *oper)
 	int		i;
 
 	i = 0;
-	while (**cmd == ' ')
+	while (**cmd == ' ' || **cmd == '\t')
 			(*cmd)++;
 	if (ms_split_first(toss, cmd, oper) > 0)
 		return (0);
-	while (ms_init(**cmd, oper) == -1 && **cmd != ' ' && **cmd != 0)
+	while (ms_init(**cmd, oper) == -1 && **cmd != ' '
+		&& **cmd != '\t' && **cmd != 0)
 	{
 		if (**cmd == '\"' || **cmd == '\'')
 		{
