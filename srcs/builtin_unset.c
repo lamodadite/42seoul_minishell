@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 22:27:38 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/24 16:30:07 by jongmlee         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:59:43 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_identifier(char *cmd)
 	i = -1;
 	while (cmd[++i] != '\0')
 	{
-		if (ft_isalnum(cmd[i]) == 1 || cmd[i] == '#')
+		if (ft_isalnum(cmd[i]) == 1 || cmd[i] == '#' || cmd[i] == '_')
 			continue ;
 		return (1);
 	}

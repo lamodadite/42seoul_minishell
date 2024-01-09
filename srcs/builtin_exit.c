@@ -6,7 +6,7 @@
 /*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:55:45 by hyeongsh          #+#    #+#             */
-/*   Updated: 2024/01/05 15:20:00 by hyeongsh         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:57:57 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	builtin_exit(char **cmds, t_container *con, int flag)
 	int	i;
 	int	exitcode;
 
+	reset_input_mode(&con->old_term);
 	if (flag == 0)
 		printf("exit\n");
 	i = 0;

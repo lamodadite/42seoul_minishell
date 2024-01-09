@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expend_edit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jongmlee <jongmlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeongsh <hyeongsh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 16:18:05 by hyeongsh          #+#    #+#             */
-/*   Updated: 2023/12/22 18:25:55 by jongmlee         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:34:11 by hyeongsh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	make_expend(char *expend, char *data, int *i, int type);
-static int	quote_edit(char c, int *quote, int type);
+static int	while_expend(char *expend, char *data, int *i, int *quote);
 static char	*env_expend(char *expend, t_container *con);
 static char	*join_expend(char **expend, int j);
 
@@ -40,37 +40,49 @@ char	*expend_list(char *data, t_container *con)
 static int	make_expend(char *expend, char *data, int *i, int type)
 {
 	static int	quote;
-	int			j;
 
-	j = 0;
-	while (data[*i])
+	if ((quote == 1 && data[*i] == '\'')
+		|| (quote == 2 && data[*i] == '\"'))
 	{
-		if (quote == 0 && type == 0 && (data[*i] == '\'' || data[*i] == '\"'))
-			quote = 1 * (data[*i] == '\'') + 2 * (data[*i] == '\"');
-		if ((quote == 0 || quote == 2) && data[*i] == '$' && j > 0)
-			break ;
-		if ((quote == 0 || quote == 2) && data[*i] == '$' && j == 0)
-			type = 1;
-		if (type == 0 && j > 0 && ((quote == 1 && data[*i] == '\'')
-				|| (quote == 2 && data[*i] == '\"')))
-		{
+		quote = 0;
+		expend[0] = data[(*i)++];
+		if (data == 0)
 			quote = 0;
-			expend[j++] = data[(*i)++];
-			break ;
-		}
-		if (type == 1 && j > 0 && ((data[*i] == '$' || data[*i] == ' '
-					|| data[*i] == 0 || data[*i] == '\"' || data[*i] == '\'')))
-			break ;
-		expend[j++] = data[(*i)++];
+		return (type);
 	}
-	return (quote_edit(data[*i], &quote, type));
+	type = while_expend(expend, data, i, &quote);
+	if (data == 0)
+		quote = 0;
+	return (type);
 }
 
-static int	quote_edit(char data, int *quote, int type)
+int	while_expend(char *expend, char *data, int *i, int *quote)
 {
-	if (data == 0)
-		*quote = 0;
-	return (type);
+	int	t[2];
+
+	t[0] = 0;
+	t[1] = 0;
+	while (data[*i])
+	{
+		if (*quote == 0 && t[1] == 0 && (data[*i] == '\'' || data[*i] == '\"'))
+			*quote = 1 * (data[*i] == '\'') + 2 * (data[*i] == '\"');
+		if ((*quote == 0 || *quote == 2) && data[*i] == '$' && t[0] > 0)
+			break ;
+		if ((*quote == 0 || *quote == 2) && data[*i] == '$' && t[0] == 0)
+			t[1] = 1;
+		if (t[1] == 0 && t[0] > 0 && ((*quote == 1 && data[*i] == '\'')
+				|| (*quote == 2 && data[*i] == '\"')))
+		{
+			*quote = 0;
+			expend[t[0]++] = data[(*i)++];
+			break ;
+		}
+		if (t[1] == 1 && t[0] > 0 && ((data[*i] == '$' || data[*i] == ' '
+					|| data[*i] == 0 || data[*i] == '\"' || data[*i] == '\'')))
+			break ;
+		expend[t[0]++] = data[(*i)++];
+	}
+	return (t[1]);
 }
 
 static char	*env_expend(char *expend, t_container *con)
@@ -114,9 +126,11 @@ static char	*join_expend(char **expend, int j)
 		else
 			tmp = ft_strdup(toss);
 		free(toss);
+		free(expend[i]);
 		toss = tmp;
 		i++;
 	}
-	free_2d_array(expend);
+	free(expend[i]);
+	free(expend);
 	return (toss);
 }
